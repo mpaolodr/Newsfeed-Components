@@ -46,18 +46,11 @@ function createMenu(arr) {
   //APPEND
   menuContainer.appendChild(ulist);
 
-  // for (let item of arr) {
-  //   const listItem = document.createElement("li");
-  //   listItem.textContent = item;
-  // }
-
   arr.forEach(function(item) {
     const listItem = document.createElement("li");
     listItem.textContent = item;
     ulist.append(listItem);
   });
-
-  console.log(ulist);
 
   menuBtn.addEventListener("click", function() {
     menuContainer.classList.toggle("menu--open");
