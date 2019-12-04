@@ -52,7 +52,7 @@ function createMenu(arr) {
     ulist.append(listItem);
   });
 
-  menuBtn.addEventListener("click", function() {
+  menuBtn.addEventListener("click", function(e) {
     menuContainer.classList.toggle("menu--open");
   });
 
