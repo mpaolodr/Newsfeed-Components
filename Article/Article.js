@@ -154,11 +154,13 @@ function createArticle(obj) {
   const secondPar = document.createElement("p");
   const thirdPar = document.createElement("p");
   const expandBtn = document.createElement("span");
+  const collapseBtn = document.createElement("span");
 
   //setup classes
   articleContainer.classList.add("article");
   articleDate.classList.add("date");
   expandBtn.classList.add("expandButton");
+  collapseBtn.classList.add("expandButton", "hide-btn");
 
   //setup structure
   articleContainer.appendChild(articleTitle);
@@ -167,6 +169,7 @@ function createArticle(obj) {
   articleContainer.appendChild(secondPar);
   articleContainer.appendChild(thirdPar);
   articleContainer.appendChild(expandBtn);
+  articleContainer.appendChild(collapseBtn);
 
   //add content
   articleTitle.textContent = obj.title;
@@ -174,11 +177,19 @@ function createArticle(obj) {
   firstPar.textContent = obj.firstParagraph;
   secondPar.textContent = obj.secondParagraph;
   thirdPar.textContent = obj.thirdParagraph;
-  expandBtn.textContent = "\u25BC";
+  expandBtn.textContent = "\u25BC Click to expand";
+  collapseBtn.textContent = "\u25b2 Click to Collapse";
 
   expandBtn.addEventListener("click", function() {
     articleContainer.classList.toggle("article-open");
-    expandBtn.textContent = "\u25b2";
+    expandBtn.classList.toggle("hide-btn");
+    collapseBtn.classList.toggle("hide-btn");
+  });
+
+  collapseBtn.addEventListener("click", function() {
+    articleContainer.classList.toggle("article-open");
+    expandBtn.classList.toggle("hide-btn");
+    collapseBtn.classList.toggle("hide-btn");
   });
 
   return articleContainer;
