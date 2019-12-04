@@ -85,6 +85,22 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: "GSAP vs. CSS Animations",
+    date: "Dec 4th, 2019",
+    firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+    secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
 
@@ -113,7 +129,7 @@ const data = [
 
 */
 
-function createArticle(title, date, first, second, third) {
+function createArticle(obj) {
   //create elements
   const articleContainer = document.createElement("div");
   const articleTitle = document.createElement("h2");
@@ -124,9 +140,36 @@ function createArticle(title, date, first, second, third) {
   const expandBtn = document.createElement("span");
 
   //setup classes
-  articleContainer.classLIst.add("article");
+  articleContainer.classList.add("article");
   articleDate.classList.add("date");
   expandBtn.classList.add("expandButton");
 
-  return;
+  //setup structure
+  articleContainer.appendChild(articleTitle);
+  articleContainer.appendChild(articleDate);
+  articleContainer.appendChild(firstPar);
+  articleContainer.appendChild(secondPar);
+  articleContainer.appendChild(thirdPar);
+  articleContainer.appendChild(expandBtn);
+
+  //add content
+  articleTitle.textContent = obj.title;
+  articleDate.textContent = obj.date;
+  firstPar.textContent = obj.firstParagraph;
+  secondPar.textContent = obj.secondParagraph;
+  thirdPar.textContent = obj.thirdParagraph;
+  expandBtn.textContent = "\u25BC";
+
+  expandBtn.addEventListener("click", function() {
+    articleContainer.classList.toggle("article-open");
+    expandBtn.textContent = "\u25b2";
+  });
+
+  return articleContainer;
 }
+
+const container = document.querySelector(".articles");
+
+data.forEach(function(item) {
+  container.appendChild(createArticle(item));
+});
