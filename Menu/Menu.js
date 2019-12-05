@@ -52,8 +52,6 @@ function createMenu(arr) {
     ulist.append(listItem);
   });
 
-  console.log(ulist);
-
   menuBtn.addEventListener("click", function(e) {
     menuContainer.classList.toggle("menu--open");
   });
