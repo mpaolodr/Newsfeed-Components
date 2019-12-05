@@ -120,6 +120,142 @@ const data = [
   }
 ];
 
+//CREATE ELEMENTS FOR FORM
+const addForm = document.createElement("form");
+const table = document.createElement("table");
+const rowOne = document.createElement("tr");
+const rowTwo = document.createElement("tr");
+const rowThree = document.createElement("tr");
+const rowFour = document.createElement("tr");
+const dataTitleOne = document.createElement("td");
+const dataTitleTwo = document.createElement("td");
+const dataDateOne = document.createElement("td");
+const dataDateTwo = document.createElement("td");
+const dataParOne = document.createElement("td");
+const dataParTwo = document.createElement("td");
+const dataParThree = document.createElement("td");
+const dataParFour = document.createElement("td");
+const btnCont = document.createElement("td");
+const titleLabel = document.createElement("label");
+const dateLabel = document.createElement("label");
+const parLabel = document.createElement("label");
+const titleInput = document.createElement("input");
+const dateInput = document.createElement("input");
+const parInputOne = document.createElement("textarea");
+const parInputTwo = document.createElement("textarea");
+const parInputThree = document.createElement("textarea");
+const addBtn = document.createElement("button");
+
+//STYLE FORM
+addForm.style.margin = "20px auto";
+addForm.style.width = "20%";
+addForm.style.padding = "0 20px 25px";
+addForm.style.border = "1px solid lightgrey";
+addForm.style.borderRadius = "10px";
+addForm.style.backgroundColor = "white";
+addForm.style.position = "relative";
+addForm.style.height = "auto";
+addForm.style.boxShadow = "2px 2px 2px lightgrey";
+table.style.height = "100%";
+
+//SET ATTRIBUTES FOR INPUT
+titleInput.setAttribute("type", "text");
+titleInput.setAttribute("required", "");
+dateInput.setAttribute("type", "date");
+addBtn.setAttribute("type", "submit");
+btnCont.setAttribute("colspan", "2");
+//SET STRUCTURE
+addForm.appendChild(table);
+table.appendChild(rowOne);
+table.appendChild(rowTwo);
+table.appendChild(rowThree);
+table.appendChild(rowFour);
+rowOne.appendChild(dataTitleOne);
+rowOne.appendChild(dataTitleTwo);
+rowTwo.appendChild(dataDateOne);
+rowTwo.appendChild(dataDateTwo);
+rowThree.appendChild(dataParOne); //for label
+rowThree.appendChild(dataParTwo);
+// rowThree.appendChild(dataParThree);
+// rowThree.appendChild(dataParFour);
+rowFour.appendChild(btnCont);
+dataTitleOne.appendChild(titleLabel);
+dataTitleTwo.appendChild(titleInput);
+dataDateOne.appendChild(dateLabel);
+dataDateTwo.appendChild(dateInput);
+dataParOne.appendChild(parLabel);
+dataParTwo.appendChild(parInputOne);
+// dataParThree.appendChild(parInputTwo);
+// dataParFour.appendChild(parInputThree);
+btnCont.appendChild(addBtn);
+
+//SET TEXTCONTENT FOR LABEL
+titleLabel.textContent = "Title:";
+dateLabel.textContent = "Date:";
+parLabel.textContent = "Content:";
+addBtn.textContent = "Add";
+
+//INSERT IN DOM
+const body = document.querySelector("body");
+body.appendChild(addForm);
+
+const td = document.querySelectorAll("td");
+td.forEach(function(data) {
+  data.style.width = "500px";
+  data.style.textAlign = "center";
+});
+
+const labelTag = document.querySelectorAll("label");
+labelTag.forEach(function(label) {
+  label.style.width = "50%";
+  label.style.fontSize = "1.3rem";
+});
+
+const inputArea = document.querySelectorAll("input");
+inputArea.forEach(function(area) {
+  area.style.borderRadius = "10px";
+  area.style.height = "30px";
+  area.style.padding = "5px";
+  area.style.width = "90%";
+  area.style.textAlign = "center";
+  area.style.marginBottom = "20px";
+});
+
+const textArea = document.querySelector("textarea");
+textArea.style.height = "100px";
+textArea.style.width = "100%";
+textArea.style.borderRadius = "10px";
+
+addBtn.style.width = "50%";
+addBtn.style.margin = "20px auto";
+addBtn.style.padding = "10px";
+addBtn.style.borderRadius = "10px";
+addBtn.style.backgroundColor = "#81c784";
+addBtn.style.fontSize = "1.2rem";
+addBtn.style.color = "white";
+addBtn.style.fontWeight = "700";
+addBtn.style.outline = "none";
+addBtn.style.border = "0.5px solid #81c784";
+addBtn.style.cursor = "pointer";
+
+table.style.padding = "20px";
+
+// addBtn.addEventListener("click", function(e) {
+//   data.push({
+//     title: `${titleInput.value}`,
+//     date: `${dateInput.value}`,
+//     firstParagraph: `${parInputOne.value}`,
+
+//     secondParagraph: `${parInputOne.value}`,
+
+//     thirdParagraph: `${parInputOne.value}`
+//   });
+
+//   console.log(data);
+
+//   e.preventDefault();
+// });
+
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
   <div class="article">
@@ -154,11 +290,16 @@ function createArticle(obj) {
   const secondPar = document.createElement("p");
   const thirdPar = document.createElement("p");
   const expandBtn = document.createElement("span");
+  const collapseBtn = document.createElement("span");
+
+  //for delete btn
+  const delBtn = document.createElement("span");
 
   //setup classes
   articleContainer.classList.add("article");
   articleDate.classList.add("date");
   expandBtn.classList.add("expandButton");
+  collapseBtn.classList.add("expandButton", "hide-btn");
 
   //setup structure
   articleContainer.appendChild(articleTitle);
@@ -167,6 +308,10 @@ function createArticle(obj) {
   articleContainer.appendChild(secondPar);
   articleContainer.appendChild(thirdPar);
   articleContainer.appendChild(expandBtn);
+  articleContainer.appendChild(collapseBtn);
+
+  //for delete button
+  articleContainer.appendChild(delBtn);
 
   //add content
   articleTitle.textContent = obj.title;
@@ -174,11 +319,36 @@ function createArticle(obj) {
   firstPar.textContent = obj.firstParagraph;
   secondPar.textContent = obj.secondParagraph;
   thirdPar.textContent = obj.thirdParagraph;
-  expandBtn.textContent = "\u25BC";
+  expandBtn.textContent = "\u25BC Click to expand";
+  collapseBtn.textContent = "\u25b2 Click to Collapse";
+
+  //for delete button
+  delBtn.textContent = "\u24e7";
+
+  //Styles for del button
+  delBtn.style.position = "absolute";
+  delBtn.style.left = "95%";
+  delBtn.style.top = "10px";
+  delBtn.style.fontSize = "2rem";
+  delBtn.style.fontWeight = "700";
+  delBtn.style.color = "#81c784";
+  delBtn.style.cursor = "pointer";
+
+  //event listener fpr delete button
+  delBtn.addEventListener("click", function(e) {
+    container.removeChild(e.target.parentNode);
+  });
 
   expandBtn.addEventListener("click", function() {
     articleContainer.classList.toggle("article-open");
-    expandBtn.textContent = "\u25b2";
+    expandBtn.classList.toggle("hide-btn");
+    collapseBtn.classList.toggle("hide-btn");
+  });
+
+  collapseBtn.addEventListener("click", function() {
+    articleContainer.classList.toggle("article-open");
+    expandBtn.classList.toggle("hide-btn");
+    collapseBtn.classList.toggle("hide-btn");
   });
 
   return articleContainer;
@@ -188,4 +358,20 @@ const container = document.querySelector(".articles");
 
 data.forEach(function(item) {
   container.appendChild(createArticle(item));
+});
+
+addBtn.addEventListener("click", function(e) {
+  data.push({
+    title: `${titleInput.value}`,
+    date: `${dateInput.value}`,
+    firstParagraph: `${parInputOne.value}`,
+
+    secondParagraph: `${parInputOne.value}`,
+
+    thirdParagraph: `${parInputOne.value}`
+  });
+
+  container.appendChild(createArticle(data[data.length - 1]));
+
+  e.preventDefault();
 });
