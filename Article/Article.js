@@ -230,6 +230,13 @@ addBtn.style.width = "50%";
 addBtn.style.margin = "20px auto";
 addBtn.style.padding = "10px";
 addBtn.style.borderRadius = "10px";
+addBtn.style.backgroundColor = "#81c784";
+addBtn.style.fontSize = "1.2rem";
+addBtn.style.color = "white";
+addBtn.style.fontWeight = "700";
+addBtn.style.outline = "none";
+addBtn.style.border = "0.5px solid #81c784";
+addBtn.style.cursor = "pointer";
 
 table.style.padding = "20px";
 
@@ -285,6 +292,9 @@ function createArticle(obj) {
   const expandBtn = document.createElement("span");
   const collapseBtn = document.createElement("span");
 
+  //for delete btn
+  const delBtn = document.createElement("span");
+
   //setup classes
   articleContainer.classList.add("article");
   articleDate.classList.add("date");
@@ -300,6 +310,9 @@ function createArticle(obj) {
   articleContainer.appendChild(expandBtn);
   articleContainer.appendChild(collapseBtn);
 
+  //for delete button
+  articleContainer.appendChild(delBtn);
+
   //add content
   articleTitle.textContent = obj.title;
   articleDate.textContent = obj.date;
@@ -308,6 +321,23 @@ function createArticle(obj) {
   thirdPar.textContent = obj.thirdParagraph;
   expandBtn.textContent = "\u25BC Click to expand";
   collapseBtn.textContent = "\u25b2 Click to Collapse";
+
+  //for delete button
+  delBtn.textContent = "\u24e7";
+
+  //Styles for del button
+  delBtn.style.position = "absolute";
+  delBtn.style.left = "95%";
+  delBtn.style.top = "10px";
+  delBtn.style.fontSize = "2rem";
+  delBtn.style.fontWeight = "700";
+  delBtn.style.color = "#81c784";
+  delBtn.style.cursor = "pointer";
+
+  //event listener fpr delete button
+  delBtn.addEventListener("click", function(e) {
+    container.removeChild(e.target.parentNode);
+  });
 
   expandBtn.addEventListener("click", function() {
     articleContainer.classList.toggle("article-open");
